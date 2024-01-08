@@ -1,9 +1,14 @@
 {
   "name": "ngx-signals",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephen-moyer/ngx-signals"
+  },
   "peerDependencies": {
     "@angular/common": "^17.0.0",
-    "@angular/core": "^17.0.0"
+    "@angular/core": "^17.0.0",
+    "@angular/router": "^17.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
