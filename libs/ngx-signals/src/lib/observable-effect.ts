@@ -74,9 +74,14 @@ export type ObservableEffectOptions<T> = ObservableEffectCoreOptions<T> & {
 };
 
 /**
+ * An observable effect that cannot be loaded manually
+ */
+export type ReadonlyObservableEffect<T> = Signal<ObservableEffectState<T>>;
+
+/**
  * @see observableEffect
  */
-export type ObservableEffect<T> = Signal<ObservableEffectState<T>> & {
+export type ObservableEffect<T> = ReadonlyObservableEffect<T> & {
   /**
    * Triggers the observableFn to run again
    */
