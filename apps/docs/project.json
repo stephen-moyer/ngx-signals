@@ -16,7 +16,7 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/docs/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "baseHref": "ngx-signals",
+        "baseHref": "/ngx-signals",
         "assets": [
           "apps/docs/src/favicon.ico",
           "apps/docs/src/assets"
