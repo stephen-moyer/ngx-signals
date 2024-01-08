@@ -13,9 +13,6 @@ A library that adds a few utility functions for working with signals and observa
 The following shows an example of a component using `observableEffect`. If you are unfamiliar with the new signals/effects features in angular, see [here](https://angular.io/guide/signals).
 
 ```typescript
-import { delay, map, of } from 'rxjs';
-import { observableEffect } from 'ngx-signals';
-
 @Component({
   selector: 'ngx-signals-example',
   standalone: true,
