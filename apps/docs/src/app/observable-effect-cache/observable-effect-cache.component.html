@@ -1,0 +1,50 @@
+<h1>observableEffectCache</h1>
+
+<section>
+  <hgroup>
+    <h2>Usage</h2>
+    <h3>General usage</h3>
+  </hgroup>
+
+  <p>
+    Similar to observableEffect, but takes a "key" signal that is passed to the
+    observable function. The observable returned from the function has
+    "shareReplay" from rxjs applied, then cached using the value of the "key"
+    signal. If the "key" signal changes, and there is an observable in the cache
+    for the "key" signal value, the cached observable will be returned to
+    "observableEffect". Notice how going backwards loads with no delay, because
+    the observable is cached. Calling load also returns instantly because the
+    key is in the cache already.
+  </p>
+  <pre>
+    <code>
+    readonly dependency = signal(1);
+    readonly example = observableEffectCache(this.dependency, (depVal) => of(depVal).pipe(delay(1000)));
+    </code>
+  </pre>
+
+  <p>
+    dependency: {{ dependency() }} (<a
+      href="javascript:;"
+      (click)="increment(dependency)"
+      >increment</a
+    >, <a href="javascript:;" (click)="decrement(dependency)">decrement</a>,
+    <a href="javascript:;" (click)="example.clear(true)"
+      >clear cache and reload</a
+    >)
+  </p>
+
+  <ngx-signals-observable-effect-debug name="example" [value]="example" />
+
+  <h4>Notes</h4>
+  <p>See <a routerLink="/observable-effect">observableEffect</a></p>
+  <p>
+    There are methods on the value returned by observableEffectCache to clear
+    and remove keys from the cache.
+  </p>
+  <p>
+    There are also options you can pass to observableEffectCache to control what
+    gets cached and if errors should be cached. You can also change the hash
+    function used for hashing the key value (the default is JSON.stringify).
+  </p>
+</section>

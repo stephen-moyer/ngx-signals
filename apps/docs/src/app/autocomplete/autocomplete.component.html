@@ -1,0 +1,46 @@
+<h1>createPager</h1>
+
+<section>
+  <hgroup>
+    <h2>Usage</h2>
+    <h3>General usage</h3>
+  </hgroup>
+
+  <p>
+    Creates an autocomplete object that can be used to load suggestions for an input
+  </p>
+  <pre>
+    <code>
+      readonly autocomplete = createAutocomplete(
+        (value: string) => of(filterStates(value)).pipe(delay(150)),
+        {{ '{' }}
+          // how many ms before calling the function to get the suggestions observable
+          // defaults to 300 ms
+          delay: 300,
+        {{ '}' }}
+      );
+
+      autocomplete.search('mar')
+    </code>
+  </pre>
+
+  <input
+    #searchInput
+    type="text"
+    placeholder="Search for state"
+    (keyup)="autocomplete.search(searchInput.value)"
+  />
+
+  <p>
+    suggestions: <code *ngIf="autocomplete().value">{{ autocomplete().value | json }}</code>
+  </p>
+
+  <ngx-signals-observable-effect-debug
+    name="autocomplete"
+    [value]="autocomplete"
+  />
+
+  <h4>Notes</h4>
+  <p>See <a routerLink="/observable-effect-cache">observableEffectCache</a></p>
+
+</section>

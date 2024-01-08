@@ -1,0 +1,101 @@
+<h1>observableEffect</h1>
+
+<section>
+  <hgroup>
+    <h2>Usage</h2>
+    <h3>General usage</h3>
+  </hgroup>
+
+  <p>
+    Creates an effect that subscribes the observable returned from the function.
+    It returns a signal that represents the state of the observable (pending,
+    loading, loaded, error) with the last emitted value or error.
+
+    The function can optionally return "undefined". This will set the signals status to "pending".
+  </p>
+  <pre>
+    <code>
+    readonly example = observableEffect(() => of(1).pipe(delay(1000)));
+
+    // template example
+    {{ templateExample }}
+    </code>
+  </pre>
+
+  <ngx-signals-observable-effect-debug name="example" [value]="example" />
+
+  <p>
+    If the observable throws an error, the signal will be in the error state and
+    contain the error
+  </p>
+  <pre>
+    <code>
+      readonly errorExample = observableEffect(() =>
+        of(1).pipe(
+          map(() => {{ '{' }}
+            throw new Error('Error!');
+          {{ '}'}}),
+        )
+      );
+    </code>
+  </pre>
+
+  <ngx-signals-observable-effect-debug name="errorExample" [value]="errorExample" />
+
+  <h4>Notes</h4>
+  <p>
+    The observable function is run inside an effect, so any signals read inside
+    the observable function will become dependencies of the effect and cause it
+    to run again if they change.
+  </p>
+  <p>
+    The observable is subscribed to when the effect first runs. If the previous
+    observable hasn't completed and the effect runs again, the previous
+    observable will be unsubscribed from.
+  </p>
+</section>
+
+<section>
+  <hgroup>
+    <h2>Options</h2>
+    <h3>Options to change the behavior of the effect</h3>
+  </hgroup>
+
+  <p>
+    There are a few options that can be passed to the function to change its
+    behavior.
+  </p>
+
+  <pre>
+      <code>
+        readonly dependency = signal(1);
+        // Only calls the observableFn after `load` is called, or on first access (getting the value by calling deferredExample())
+        readonly deferredExample = observableEffect(
+            () => of(this.dependency()).pipe(delay(1000)),
+            {{ '{' }} deferred: true {{ '}' }}
+        );
+        // Does not run the observable function if dependencies change, only if `load` is called
+        readonly nonRxExample = observableEffect(
+            () => of(this.dependency()).pipe(delay(1000)),
+            {{ '{' }} nonReactive: true {{ '}' }}
+        );
+      </code>
+  </pre>
+
+  <p>
+    dependency: {{ dependency() }} (<a
+      href="javascript:;"
+      (click)="increment(dependency)"
+      >increment</a
+    >)
+  </p>
+
+  <ngx-signals-observable-effect-debug
+    name="deferredExample"
+    [value]="deferredExample"
+  />
+  <ngx-signals-observable-effect-debug
+    name="nonRxExample"
+    [value]="nonRxExample"
+  />
+</section>

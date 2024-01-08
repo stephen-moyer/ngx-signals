@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "ngx-signals": ["libs/ngx-signals/src/index.ts"],
+      "ngx-signals/autocomplete": [
+        "libs/ngx-signals/autocomplete/src/index.ts"
+      ],
+      "ngx-signals/pager": ["libs/ngx-signals/pager/src/index.ts"],
+      "ngx-signals/router": ["libs/ngx-signals/router/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

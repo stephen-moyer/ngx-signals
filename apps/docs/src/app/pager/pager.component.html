@@ -1,0 +1,44 @@
+<h1>createPager</h1>
+
+<section>
+  <hgroup>
+    <h2>Usage</h2>
+    <h3>General usage</h3>
+  </hgroup>
+
+  <p>
+    Creates a pager object that can be used to load pages of data reactively
+    using an effect. By default the page items for a given page are cached. This
+    can be turned off using the pager options.
+  </p>
+  <pre>
+    <code>
+    readonly page = signal({{ '{' }} pageNumber: 1, pageSize: 10 {{ '}' }});
+    readonly pager = createPager(this.page, ({{ '{' }} pageNumber, pageSize {{ '}' }}) =>
+      getPage(pageNumber, pageSize)
+    );
+    </code>
+  </pre>
+
+  <p>
+    page: {{ page().pageNumber }} (<a href="javascript:;" (click)="nextPage()"
+      >next</a
+    >, <a href="javascript:;" (click)="previousPage()">prev</a>)
+  </p>
+
+  <p>
+    current page items: <code>{{ pager().value?.page?.items | json }}</code>
+  </p>
+
+  <ngx-signals-observable-effect-debug name="pager" [value]="pager" />
+
+  <h4>Notes</h4>
+  <p>See <a routerLink="/observable-effect-cache">observableEffectCache</a></p>
+
+  <p>The pagers value contains the following properties:</p>
+  <ul>
+    <li>page: the current page</li>
+    <li>pages: all cached pages</li>
+    <li>allItems: items from all cached pages and current page combined</li>
+  </ul>
+</section>
