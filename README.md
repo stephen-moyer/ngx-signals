@@ -25,6 +25,15 @@ readonly users = observableEffect(
 ); 
 readonly _ = effect(() => {
   console.log(users());
+  // ...search for john
+  // { "status": "loading", value: undefined }
+  // ...observable completes
+  // { "status": "loaded", value: { name: 'john' } }
+  //
+  // ...search for bob
+  // { "status": "loading", value: { name: 'john' } }
+  // ...observable completes
+  // { "status": "loaded", value: { name: 'bob' } }
 });
 
 searchForBob() {

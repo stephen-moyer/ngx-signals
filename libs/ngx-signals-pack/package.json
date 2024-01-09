@@ -1,6 +1,7 @@
 {
   "name": "ngx-signals-pack",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "keywords": ["angular", "signals", "rxjs", "reactive"],
   "repository": {
     "type": "git",
     "url": "https://github.com/stephen-moyer/ngx-signals-pack"
