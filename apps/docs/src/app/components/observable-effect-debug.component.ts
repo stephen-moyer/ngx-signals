@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ObservableEffect } from 'ngx-signals';
+import { ObservableEffect } from 'ngx-signals-pack';
 
 @Component({
-  selector: 'ngx-signals-observable-effect-debug',
+  selector: 'docs-observable-effect-debug',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],

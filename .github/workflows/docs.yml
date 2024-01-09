@@ -18,7 +18,7 @@ jobs:
         run: npm ci
 
       - name: build docs
-        run: npx nx run docs:build --configuration=production -- --base-href /ngx-signals/
+        run: npx nx run docs:build --configuration=production -- --base-href /ngx-signals-pack/
 
       - name: set 404 page
         run: cp dist/apps/docs/browser/index.html dist/apps/docs/browser/404.html 

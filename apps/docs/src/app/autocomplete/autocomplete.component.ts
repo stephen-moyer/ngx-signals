@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { createAutocomplete } from 'ngx-signals/autocomplete';
+import { createAutocomplete } from 'ngx-signals-pack/autocomplete';
 import { delay, of } from 'rxjs';
 import { ObservableEffectDebugComponent } from '../components';
 
@@ -64,7 +64,7 @@ function filterStates(value: string) {
 }
 
 @Component({
-  selector: 'ngx-signals-autocomplete',
+  selector: 'docs-autocomplete',
   standalone: true,
   imports: [CommonModule, ObservableEffectDebugComponent],
   templateUrl: './autocomplete.component.html',

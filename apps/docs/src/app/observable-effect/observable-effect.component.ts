@@ -5,12 +5,12 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { observableEffect } from 'ngx-signals';
+import { observableEffect } from 'ngx-signals-pack';
 import { delay, map, of } from 'rxjs';
 import { ObservableEffectDebugComponent } from '../components';
 
 @Component({
-  selector: 'ngx-signals-observable-effect',
+  selector: 'docs-observable-effect',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ObservableEffectDebugComponent],

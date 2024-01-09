@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'ngx-signals',
+  displayName: 'ngx-signals-pack',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/libs/ngx-signals',
+  coverageDirectory: '../../coverage/libs/ngx-signals-pack',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

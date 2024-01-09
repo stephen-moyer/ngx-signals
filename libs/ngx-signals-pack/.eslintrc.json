@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "ngx-signals",
+            "prefix": "ngx-signals-pack",
             "style": "kebab-case"
           }
         ]

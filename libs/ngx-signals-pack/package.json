@@ -1,9 +1,9 @@
 {
-  "name": "ngx-signals",
+  "name": "ngx-signals-pack",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stephen-moyer/ngx-signals"
+    "url": "https://github.com/stephen-moyer/ngx-signals-pack"
   },
   "peerDependencies": {
     "@angular/common": "^17.0.0",

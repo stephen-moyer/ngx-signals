@@ -6,7 +6,7 @@ import {
   ObservableEffectCacheOptions,
   ShouldCache,
   observableEffectCache,
-} from 'ngx-signals';
+} from 'ngx-signals-pack';
 
 export type PageRequest = {
   pageNumber: number;

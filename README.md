@@ -1,4 +1,4 @@
-# ngx-signals
+# ngx-signals-pack
 
 A library that adds a few utility functions for working with signals and observables together in angular, plus a bit more.
 
@@ -6,7 +6,7 @@ A library that adds a few utility functions for working with signals and observa
 
 #### Install
 
-`npm i ngx-signals`
+`npm i ngx-signals-pack`
 
 #### Minimal Example
 The following is a minimal example of using `observableEffect`, a wrapper around an effect that runs the provided function and subscribes to the returned observable.  If you are unfamiliar with the new signals/effects features in angular, see [here](https://angular.io/guide/signals).
@@ -15,7 +15,7 @@ The value of `users` will be the status of loading the observable (`loading`, `p
 
 ```typescript
 import { signal, effect } from '@angular/core';
-import { observableEffect } from 'ngx-signals';
+import { observableEffect } from 'ngx-signals-pack';
 
 // component boilerplate...
 
@@ -40,10 +40,10 @@ The following shows an example of a component using `observableEffect`.
 
 ```typescript
 // ... other imports
-import { observableEffect } from 'ngx-signals';
+import { observableEffect } from 'ngx-signals-pack';
 
 @Component({
-  selector: 'ngx-signals-example',
+  selector: 'ngx-signals-pack-example',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
@@ -63,7 +63,7 @@ import { observableEffect } from 'ngx-signals';
     <div *ngIf="reactiveExample().status === 'error'">Error: {{ example().error }}</div>
     <div *ngIf="reactiveExample().status === 'loaded'">Value: {{ example().value }}</div>
   `,
-  styleUrl: './ngx-signals-example.component.scss',
+  styleUrl: './ngx-signals-pack-example.component.scss',
 })
 export class NgxSignalsExampleComponent {
   // or httpClient.get(), or fetch(). any ObservableInput type can be returned.
@@ -93,4 +93,4 @@ Please see the interactive documentation for more examples.
 
 ## Documentation
 
-Interactive example documentation is available [here](https://stephen-moyer.github.io/ngx-signals/)
+Interactive example documentation is available [here](https://stephen-moyer.github.io/ngx-signals-pack/)

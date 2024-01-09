@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { createPager } from 'ngx-signals/pager';
+import { createPager } from 'ngx-signals-pack/pager';
 import { delay, of } from 'rxjs';
 import { ObservableEffectDebugComponent } from '../components';
 
@@ -72,7 +72,7 @@ function getPage(pageNumber: number, pageSize: number) {
 }
 
 @Component({
-  selector: 'ngx-signals-pager',
+  selector: 'docs-pager',
   standalone: true,
   imports: [CommonModule, ObservableEffectDebugComponent],
   templateUrl: './pager.component.html',

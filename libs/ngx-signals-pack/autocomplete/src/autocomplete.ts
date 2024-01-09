@@ -5,7 +5,7 @@ import {
   ObservableEffectCacheOptions,
   ShouldCache,
   observableEffectCache,
-} from 'ngx-signals';
+} from 'ngx-signals-pack';
 
 const defaultDelayMs = 300;
 
