@@ -44,7 +44,7 @@ describe('ObservableEffectTests', () => {
 
       await nextSchedulerTick();
 
-      const value = testSignal!();
+      const value = testSignal();
       expect(value).toMatchObject({
         status: 'loading',
       });
@@ -58,7 +58,7 @@ describe('ObservableEffectTests', () => {
 
       await nextSchedulerTick();
 
-      const value = testSignal!();
+      const value = testSignal();
       expect(value).toMatchObject({
         status: 'loaded',
         value: 1,
@@ -75,7 +75,7 @@ describe('ObservableEffectTests', () => {
       emit.next(1);
       await nextSchedulerTick();
 
-      let value = testSignal!();
+      let value = testSignal();
       expect(value).toMatchObject({
         status: 'loaded',
         value: 1,
@@ -85,7 +85,7 @@ describe('ObservableEffectTests', () => {
       TestBed.flushEffects();
       await nextSchedulerTick();
 
-      value = testSignal!();
+      value = testSignal();
       expect(value).toMatchObject({
         status: 'loading',
         value: 1,
@@ -93,7 +93,7 @@ describe('ObservableEffectTests', () => {
 
       emit.next(2);
       await nextSchedulerTick();
-      value = testSignal!();
+      value = testSignal();
       expect(value).toMatchObject({
         status: 'loaded',
         value: 2,
@@ -108,7 +108,7 @@ describe('ObservableEffectTests', () => {
       TestBed.flushEffects();
       await nextSchedulerTick();
 
-      const value = testSignal!();
+      const value = testSignal();
       expect(value).toMatchObject({
         status: 'error',
         error,
@@ -123,7 +123,7 @@ describe('ObservableEffectTests', () => {
       await nextSchedulerTick();
 
       // load isn't started until we get the value
-      let value = testSignal!();
+      let value = testSignal();
       expect(value).toMatchObject({
         status: 'pending',
       });
@@ -131,7 +131,7 @@ describe('ObservableEffectTests', () => {
       TestBed.flushEffects();
       await nextSchedulerTick();
 
-      value = testSignal!();
+      value = testSignal();
       expect(value).toMatchObject({
         status: 'loaded',
         value: 1,
@@ -147,7 +147,7 @@ describe('ObservableEffectTests', () => {
       await nextSchedulerTick();
 
       // load isn't started until we get the value
-      let value = testSignal!();
+      let value = testSignal();
       expect(value).toMatchObject({
         status: 'loaded',
         value: 'dep',
@@ -158,10 +158,106 @@ describe('ObservableEffectTests', () => {
       TestBed.flushEffects();
       await nextSchedulerTick();
 
-      value = testSignal!();
+      value = testSignal();
       expect(value).toMatchObject({
         status: 'loaded',
         value: 'dep2',
+      });
+    });
+  });
+
+  it('should not load when deferred and not reactive', async () => {
+    TestBed.runInInjectionContext(async () => {
+      const dep = signal('dep');
+      const testSignal = observableEffect(() => of(dep()), {
+        deferred: true,
+        nonReactive: true,
+      });
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      let value = testSignal();
+      expect(value).toMatchObject({
+        status: 'pending',
+        value: 'undefined',
+      });
+
+      dep.set('dep2');
+
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      value = testSignal();
+      expect(value).toMatchObject({
+        status: 'pending',
+        value: 'undefined',
+      });
+
+      dep.set('dep3');
+
+      testSignal.load();
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      value = testSignal();
+      expect(value).toMatchObject({
+        status: 'loaded',
+        value: 'dep3',
+      });
+    });
+  });
+
+  it('should not load when not reactive', async () => {
+    TestBed.runInInjectionContext(async () => {
+      const dep = signal('dep');
+      const testSignal = observableEffect(() => of(dep()), {
+        nonReactive: true,
+      });
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      let value = testSignal();
+      expect(value).toMatchObject({
+        status: 'loaded',
+        value: 'dep',
+      });
+
+      dep.set('dep2');
+
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      value = testSignal();
+      expect(value).toMatchObject({
+        status: 'loaded',
+        value: 'dep',
+      });
+    });
+  });
+
+  it('should reset', async () => {
+    TestBed.runInInjectionContext(async () => {
+      const dep = signal('dep');
+      const testSignal = observableEffect(() => of(dep()), { initialValue: 'init' });
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      // load isn't started until we get the value
+      let value = testSignal();
+      expect(value).toMatchObject({
+        status: 'loaded',
+        value: 'dep',
+      });
+
+      testSignal.reset();
+
+      TestBed.flushEffects();
+      await nextSchedulerTick();
+
+      value = testSignal();
+      expect(value).toMatchObject({
+        status: 'pending',
+        value: 'init',
       });
     });
   });

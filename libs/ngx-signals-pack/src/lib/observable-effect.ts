@@ -70,7 +70,7 @@ export type ObservableEffectOptions<T> = ObservableEffectCoreOptions<T> & {
    * If true, the effect will only subscribe to the observable on first access or a manual call to load()
    * This can be useful if it is used inside an ngIf/@if block
    */
-  deferred?: boolean;
+  deferred?: boolean | 'access' | 'load';
 };
 
 /**
@@ -86,6 +86,11 @@ export type ObservableEffect<T> = ReadonlyObservableEffect<T> & {
    * Triggers the observableFn to run again
    */
   load: () => void;
+
+  /**
+   * Resets the state of the observable effect to the initial state
+   */
+  reset: () => void;
 };
 
 export const defaultScheduler = asyncScheduler;
@@ -127,7 +132,7 @@ export function observableEffect<T>(
     // dependencies in asyncValueFn change is easier this way
     const runCount = forceRun();
 
-    // if deferred, don't load on first execution
+    // if deferred is set, don't load on first execution
     if (opts?.deferred && runCount === 0) {
       return;
     }
@@ -143,7 +148,10 @@ export function observableEffect<T>(
 
   const readonlyState = asyncState.asReadonly();
   const accessor = () => {
-    if (opts?.deferred && forceRun() === 0) {
+    if (
+      (opts?.deferred === true || opts?.deferred === 'access') &&
+      forceRun() === 0
+    ) {
       scheduler.schedule(() => forceRun.update((val) => ++val));
     }
     return readonlyState();
@@ -152,6 +160,13 @@ export function observableEffect<T>(
   return Object.assign(accessor, {
     ...readonlyState,
     load: () => forceRun.update((val) => ++val),
+    reset: () =>
+      asyncState.set(
+        new ObservableEffectState<T>({
+          value: opts?.initialValue,
+          status: initialStatus,
+        })
+      ),
   });
 }
 

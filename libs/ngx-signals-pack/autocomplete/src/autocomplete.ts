@@ -1,5 +1,6 @@
 import { signal } from '@angular/core';
 import { ObservableInput, delay, of, switchMap } from 'rxjs';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   ObservableEffectCache,
   ObservableEffectCacheOptions,

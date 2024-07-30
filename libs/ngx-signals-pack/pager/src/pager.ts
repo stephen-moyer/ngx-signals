@@ -1,5 +1,6 @@
 import { Signal, computed } from '@angular/core';
 import { ObservableInput, from, map } from 'rxjs';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   ObservableEffect,
   ObservableEffectState,

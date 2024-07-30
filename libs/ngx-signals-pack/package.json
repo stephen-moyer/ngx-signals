@@ -1,15 +1,15 @@
 {
   "name": "ngx-signals-pack",
-  "version": "0.0.3",
+  "version": "0.0.12",
   "keywords": ["angular", "signals", "rxjs", "reactive"],
   "repository": {
     "type": "git",
     "url": "https://github.com/stephen-moyer/ngx-signals-pack"
   },
   "peerDependencies": {
-    "@angular/common": "^17.0.0",
-    "@angular/core": "^17.0.0",
-    "@angular/router": "^17.0.0"
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/router": "^18.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

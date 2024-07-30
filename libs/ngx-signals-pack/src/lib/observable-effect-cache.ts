@@ -11,6 +11,7 @@ import {
   ObservableEffectCoreOptions,
   ObservableEffect,
   observableEffect,
+  ObservableEffectOptions,
 } from './observable-effect';
 import { finalizeWithReason } from './rxjs-utils';
 
@@ -32,7 +33,7 @@ export type CacheEntry<TKey, TValue> = {
 };
 
 export type ObservableEffectCacheOptions<TKey, TValue> =
-  ObservableEffectCoreOptions<TValue> & {
+  ObservableEffectOptions<TValue> & {
     cacheErrors?: boolean;
     expirationMs?: number;
     /**
@@ -55,7 +56,13 @@ export type ObservableEffectCache<TKey, TValue> = ObservableEffect<TValue> & {
    * clears the cache
    * @param load If true, the value for the current key will be loaded again
    */
-  clear: (load?: boolean) => void;
+  clearCache: (load?: boolean) => void;
+
+  /**
+   * clears the cache
+   * @param load If true, the value for the current key will be loaded again
+   */
+  clearCacheAndReset: (load?: boolean) => void;
 
   /**
    * removes the cached value for this key
@@ -85,7 +92,7 @@ export function observableEffectCache<TKey, TValue>(
   const hashFn = opts?.hashFn ?? JSON.stringify;
   const cacheErrors = opts?.cacheErrors ?? false;
   const shouldCache = opts?.shouldCache ?? (() => true);
-  const cacheEnabled = typeof shouldCache === 'boolean' ? !shouldCache : true;
+  const cacheEnabled = typeof shouldCache === 'boolean' ? shouldCache : true;
   const shouldCacheFn =
     typeof shouldCache === 'boolean' ? () => shouldCache : shouldCache;
 
@@ -94,7 +101,7 @@ export function observableEffectCache<TKey, TValue>(
     const keyVal = key();
     const observableInput = observableFn(keyVal);
     // undefined/null observables dont get cached
-    if (observableInput === undefined || observableInput === null) {
+    if (observableInput == undefined) {
       return observableInput;
     }
 
@@ -151,8 +158,15 @@ export function observableEffectCache<TKey, TValue>(
   }, opts);
 
   return Object.assign(obsEffect, {
-    clear: (load = false) => {
+    clearCache: (load = false) => {
       cache.clear();
+      if (load) {
+        obsEffect.load();
+      }
+    },
+    clearCacheAndReset: (load = false) => {
+      cache.clear();
+      obsEffect.reset();
       if (load) {
         obsEffect.load();
       }
