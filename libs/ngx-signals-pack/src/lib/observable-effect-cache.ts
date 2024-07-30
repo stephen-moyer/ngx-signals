@@ -59,7 +59,7 @@ export type ObservableEffectCache<TKey, TValue> = ObservableEffect<TValue> & {
   clearCache: (load?: boolean) => void;
 
   /**
-   * clears the cache
+   * clears the cache and resets the value to the initial state
    * @param load If true, the value for the current key will be loaded again
    */
   clearCacheAndReset: (load?: boolean) => void;

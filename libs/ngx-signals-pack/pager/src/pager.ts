@@ -52,6 +52,12 @@ export type Pager<
   clear: (load?: boolean) => void;
 
   /**
+   * removes all cached pages and resets the value to the initial state
+   * @param load If true, the current page will load again
+   */
+  clearAndReset: (load?: boolean) => void;
+
+  /**
    * removes the cached page for this key
    * @param key The key to remove
    */
@@ -131,7 +137,9 @@ export function createPager<
 
   return Object.assign(pagerState, {
     load: () => obsEffect.load(),
-    clear: (load = false) => obsEffect.clear(load),
+    reset: () => obsEffect.reset(),
+    clear: (load = false) => obsEffect.clearCache(load),
+    clearAndReset: (load = false) => obsEffect.clearCacheAndReset(load),
     remove: (key: TCurrentPage) => obsEffect.remove(key),
   });
 }
