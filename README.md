@@ -11,7 +11,7 @@ A library that adds a few utility functions for working with signals and observa
 #### Minimal Example
 The following is a minimal example of using `observableEffect`, a wrapper around an effect that runs the provided function and subscribes to the returned observable.  If you are unfamiliar with the new signals/effects features in angular, see [here](https://angular.io/guide/signals).
 
-The value of `users` will be the status of loading the observable (`loading`, `pending`, `loading`), and eventually contain the value emitted from the `searchUsers` observable.
+The value of `users` will be the status of loading the observable (`loading`, `pending`, `loaded`, and `error`), and eventually contain the value emitted from the `searchUsers` observable.
 
 ```typescript
 import { signal, effect } from '@angular/core';
